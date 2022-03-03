@@ -19,7 +19,7 @@ apply plugin: 'maven-publish'
 
 version = '1.0'
 group = 'com.LubieKakao1212.qlib' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'qlib'
+archivesBaseName = 'qulib'
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -231,6 +231,9 @@ afterEvaluate {
 shadowJar {
     classifier = ""
     dependencies {
+        include(dependency(group: 'org.apache.commons', name: 'commons-rng-sampling', version: '1.4'))
+        include(dependency(group: 'org.apache.commons', name: 'commons-rng-core', version: '1.4'))
+        include(dependency(group: 'org.apache.commons', name: 'commons-rng-client-api', version: '1.4'))
         include(dependency("org.joml:joml:${jomlVersion}"))
     }
 }

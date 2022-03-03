@@ -1,4 +1,4 @@
-package com.LubieKakao1212.jomlmc.util;
+package com.LubieKakao1212.qulib.util;
 
 import net.minecraft.core.Direction;
 import org.joml.Vector3d;

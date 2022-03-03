@@ -1,6 +1,6 @@
-package com.LubieKakao1212.jomlmc.math;
+package com.LubieKakao1212.qulib.math;
 
-import com.LubieKakao1212.jomlmc.util.Vector3dUtil;
+import com.LubieKakao1212.qulib.util.Vector3dUtil;
 import net.minecraft.core.Direction;
 import org.joml.Quaterniond;
 import org.joml.Vector3d;
@@ -32,15 +32,19 @@ public class AimUtil {
         return new Vector3d(-vector.y, vector.x, 0);
     }
 
-    public static Quaterniond aimRad(float pitch, float yaw) {
-        return aimRad(pitch, yaw, Direction.EAST, Direction.DOWN);
+    public static Quaterniond aimDeg(double pitch, double yaw) {
+        return aimRad(pitch * MathUtil.degToRad, yaw * MathUtil.degToRad);
     }
 
-    public static Quaterniond aimRad(float pitch, float yaw, Direction leftOrientation, Direction upOrientation) {
+    public static Quaterniond aimRad(double pitch, double yaw) {
+        return aimRad(pitch, yaw, Direction.WEST, Direction.UP);
+    }
+
+    public static Quaterniond aimRad(double pitch, double yaw, Direction leftOrientation, Direction upOrientation) {
         return aimRad(pitch, yaw, Vector3dUtil.of(leftOrientation, new Vector3d()), Vector3dUtil.of(upOrientation, new Vector3d()));
     }
 
-    public static Quaterniond aimRad(float pitch, float yaw, Vector3d left, Vector3d up) {
+    public static Quaterniond aimRad(double pitch, double yaw, Vector3d left, Vector3d up) {
         Quaterniond q = new Quaterniond().fromAxisAngleRad(up, -yaw)
                 .mul(new Quaterniond().fromAxisAngleRad(left, -pitch));
         return q;

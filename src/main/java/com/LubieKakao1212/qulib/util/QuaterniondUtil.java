@@ -1,4 +1,4 @@
-package com.LubieKakao1212.jomlmc.util;
+package com.LubieKakao1212.qulib.util;
 
 import org.joml.Quaterniond;
 

@@ -1,4 +1,4 @@
-package com.LubieKakao1212.jomlmc.math;
+package com.LubieKakao1212.qulib.math;
 
 import org.joml.Vector3d;
 

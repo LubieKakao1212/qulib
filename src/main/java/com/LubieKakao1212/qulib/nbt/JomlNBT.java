@@ -1,6 +1,5 @@
-package com.LubieKakao1212.jomlmc.nbt;
+package com.LubieKakao1212.qulib.nbt;
 
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
