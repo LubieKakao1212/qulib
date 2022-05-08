@@ -215,7 +215,7 @@ jar.finalizedBy('sourcesJar')
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact jar
+            artifact shadowJar
             artifact sourcesJar
         }
     }
