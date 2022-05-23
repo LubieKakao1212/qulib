@@ -1,6 +1,6 @@
 package com.LubieKakao1212.qulib.math;
 
-import com.LubieKakao1212.qulib.util.Vector3dUtil;
+import com.LubieKakao1212.qulib.util.joml.Vector3dUtil;
 import net.minecraft.core.Direction;
 import org.joml.Quaterniond;
 import org.joml.Vector3d;

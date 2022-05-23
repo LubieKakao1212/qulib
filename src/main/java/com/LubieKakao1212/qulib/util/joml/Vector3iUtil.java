@@ -1,4 +1,4 @@
-package com.LubieKakao1212.qulib.util;
+package com.LubieKakao1212.qulib.util.joml;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

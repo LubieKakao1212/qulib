@@ -1,10 +1,10 @@
-package com.LubieKakao1212.qulib.util;
+package com.LubieKakao1212.qulib.util.joml;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3d;
-import org.joml.Vector3i;
 
 public class Vector3dUtil {
 
@@ -56,6 +56,10 @@ public class Vector3dUtil {
 
     public static Vector3d of(BlockPos pos) {
         return new Vector3d(pos.getX(), pos.getY(), pos.getZ());
+    }
+
+    public static Vector3d of(Vec3 pos) {
+        return new Vector3d(pos.x(), pos.y(), pos.z());
     }
 
     public static AABB toAABB(Vector3d min, Vector3d max) {
