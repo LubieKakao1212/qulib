@@ -1,2 +1,3 @@
 # qulib
-Joml and Apache Commons Rng libraries packaged as minecraft mod.
+Joml library packaged as minecraft mod. 
+Also includes related utility functions.

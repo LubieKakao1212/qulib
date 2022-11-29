@@ -17,7 +17,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.0.3'
+version = '1.0.4'
 group = 'com.LubieKakao1212.qulib' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'qulib'
 
@@ -178,11 +178,7 @@ dependencies {
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
 
-    implementation group: 'org.apache.commons', name: 'commons-rng-client-api', version: '1.4'
-    implementation group: 'org.apache.commons', name: 'commons-rng-core', version: '1.4'
-    implementation group: 'org.apache.commons', name: 'commons-rng-sampling', version: '1.4'
     implementation group: 'com.fathzer', name: 'javaluator', version: '3.0.3'
-    //implementation group: 'org.apache.commons', name: 'commons-rng-simple', version: '1.4'
     implementation "org.joml:joml:${jomlVersion}"
 }
 
@@ -240,9 +236,6 @@ afterEvaluate {
 shadowJar {
     classifier = ""
     dependencies {
-        include(dependency(group: 'org.apache.commons', name: 'commons-rng-sampling', version: '1.4'))
-        include(dependency(group: 'org.apache.commons', name: 'commons-rng-core', version: '1.4'))
-        include(dependency(group: 'org.apache.commons', name: 'commons-rng-client-api', version: '1.4'))
         include(dependency(group: 'com.fathzer', name: 'javaluator', version: '3.0.3'))
         include(dependency("org.joml:joml:${jomlVersion}"))
     }
