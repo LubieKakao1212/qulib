@@ -9,24 +9,31 @@ import java.util.Random;
 
 public class AimUtil {
 
-    private static Random random = new Random();
+    public static final Random random = new Random();
 
     public static Vector3d calculateForwardWithUniformSpread(Quaterniond aim, double maxSpread, Vector3d forwardIn) {
         return calculateForwardWithSpread(aim, random.nextDouble() * maxSpread / 2f, forwardIn);
     }
 
     public static Vector3d calculateForwardWithSpread(Quaterniond aim, double spread, Vector3d forwardIn) {
-        Vector3d forward = aim.transform(forwardIn);
+        return  calculateForwardWithSpread(aim, spread, random.nextDouble() * Math.PI * 2., forwardIn);
+    }
+
+    public static Vector3d calculateForwardWithSpread(Quaterniond aim, double spread, double roll, Vector3d forwardIn) {
+        return calculateForwardWithSpread(spread, roll, aim.transform(forwardIn));
+    }
+
+    public static Vector3d calculateForwardWithSpread(double spread, double roll, Vector3d forward) {
         Vector3d side = perpendicular(forward);
 
         Quaterniond rotSide = new Quaterniond().fromAxisAngleRad(side, spread);
 
-        Quaterniond rotRound = new Quaterniond().fromAxisAngleRad(forward, (random.nextDouble() * Math.PI * 2));
+        Quaterniond rotRound = new Quaterniond().fromAxisAngleRad(forward, roll);
         return rotRound.mul(rotSide).transform(forward);
     }
 
     public static Vector3d perpendicular(Vector3d vector) {
-        if(!MathUtil.equals(vector, Vector3dUtil.SOUTH)) {
+        if(!MathUtil.axisEquals(vector, Vector3dUtil.SOUTH)) {
             return new Vector3d(0, -vector.z, vector.y);
         }
         return new Vector3d(-vector.y, vector.x, 0);

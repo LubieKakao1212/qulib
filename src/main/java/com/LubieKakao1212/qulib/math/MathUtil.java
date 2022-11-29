@@ -15,6 +15,10 @@ public class MathUtil {
         return one.dot(two) < epsilon;
     }
 
+    public static boolean axisEquals(Vector3d one, Vector3d two) {
+        return Math.abs(one.dot(two)) < epsilon;
+    }
+
     public static double loop(double a, double min, double max) {
         double b = a - min;
         double c = b % (max - min);
