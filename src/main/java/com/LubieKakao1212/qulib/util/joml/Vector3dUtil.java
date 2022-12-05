@@ -15,6 +15,8 @@ public class Vector3dUtil {
     public static final Vector3d UP = new org.joml.Vector3d(0., 1., 0.);
     public static final Vector3d DOWN = new org.joml.Vector3d(0., -1., 0.);
 
+    public static final Vector3d ONE = new Vector3d(1., 1., 1.);
+
     public static Vector3d south() {
         return new Vector3d(SOUTH);
     }
