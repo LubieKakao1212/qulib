@@ -27,14 +27,14 @@ displayName="Qu Library" #mandatory
 # A URL for the "homepage" for this mod, displayed in the mod UI
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
-logoFile="examplemod.png" #optional
+logoFile="icon.png" #optional
 # A text field displayed in the mod UI
 credits="https://github.com/LubieKakao1212/qulib/NOTICE" #optional
 # A text field displayed in the mod UI
-authors="Love, Cheese and small house plants" #optional
+authors="LubieKakao1212" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Joml and Apache Commons Rng libraries packaged as minecraft mod.
+Joml and Javaluator libraries packaged as minecraft mod.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.qulib]] #optional

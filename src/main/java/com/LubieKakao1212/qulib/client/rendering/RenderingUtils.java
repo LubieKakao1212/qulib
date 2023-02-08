@@ -1,13 +1,17 @@
 package com.LubieKakao1212.qulib.client.rendering;
 
-import com.LubieKakao1212.qulib.math.AimUtil;
 import com.LubieKakao1212.qulib.util.joml.Vector3dUtil;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import io.netty.channel.nio.NioEventLoopGroup;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.*;
 
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
+@OnlyIn(Dist.CLIENT)
 public class RenderingUtils {
 
     public static void box(VertexConsumer bufferBuilder, Quaterniond orientation, Vector3d pos, Vector3d scale) {
@@ -70,26 +74,27 @@ public class RenderingUtils {
     }
 
     /**
-     * Appends four vertices to supplied bufferBuilder, you must call {@link BufferBuilder#begin(VertexFormat.Mode, VertexFormat)} with {@link VertexFormat.Mode#QUADS} beforehand.
-     * Element order POSITION, UV, COLOR
+     * Appends four vertices to supplied bufferBuilder, vertex consumer must be started with {@link VertexFormat.Mode#QUADS} beforehand.
      */
-    public static void quad(VertexConsumer bufferBuilder, Vector3d v1, Vector3d v2, Vector3d v3, Vector3d v4) {
-        vertex(bufferBuilder, v1);
-        vertex(bufferBuilder, v2);
-        vertex(bufferBuilder, v3);
-        vertex(bufferBuilder, v4);
+    public static void quad(VertexConsumer vertexConsumer, Vector3d v1, Vector3d v2, Vector3d v3, Vector3d v4) {
+        vertex(vertexConsumer, v1, Optional.empty(), Optional.empty(), Optional.empty());
+        vertex(vertexConsumer, v2, Optional.empty(), Optional.empty(), Optional.empty());
+        vertex(vertexConsumer, v3, Optional.empty(), Optional.empty(), Optional.empty());
+        vertex(vertexConsumer, v4, Optional.empty(), Optional.empty(), Optional.empty());
     }
 
-    public static void vertex(VertexConsumer bufferBuilder, Vector3d pos) {
-        bufferBuilder.vertex(pos.x, pos.y, pos.z);
-        //bufferBuilder.color((float)color.x, (float)color.y, (float)color.z, (float)color.w);
-       /* bufferBuilder.uv(0f,0f);
-        bufferBuilder.uv2(0);
-        bufferBuilder.normal(0f,0f,0f);*/
-        bufferBuilder.endVertex();
+    public static void vertex(VertexConsumer vertexConsumer, Vector3d pos, Optional<Vector2d> uvIn, Optional<Integer> uv2In, Optional<Vector3d> normalIn) {
+        vertexConsumer.vertex(pos.x, pos.y, pos.z);
+        //vertexConsumer.color((float)color.x, (float)color.y, (float)color.z, (float)color.w);
+        uvIn.ifPresent((uv) -> vertexConsumer.uv((float)uv.x, (float)uv.y));
+        //vertexConsumer.uv2(0);
+        uv2In.ifPresent((uv2) -> vertexConsumer.uv2(uv2));
+        normalIn.ifPresent((normal) -> vertexConsumer.normal((float)normal.x, (float)normal.y, (float)normal.z));
+
+        vertexConsumer.endVertex();
     }
 
-    RenderingUtils.Mesh CUBE = new RenderingUtils.Mesh(
+    public static RenderingUtils.Mesh CUBE = new RenderingUtils.Mesh(
             new Vector3d[] {
                     new Vector3d(0.5 , 0.5 , 0.5 ),
                     new Vector3d(-0.5, 0.5 , 0.5 ),
@@ -113,6 +118,7 @@ public class RenderingUtils {
     public static class Mesh {
         private Vector3d[] vertices;
         private int[] indices;
+        private float[] uvs;
 
         private int quadCount;
 

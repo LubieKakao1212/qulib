@@ -17,7 +17,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.0.11'
+version = '1.0.23'
 group = 'com.LubieKakao1212.qulib' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'qulib'
 
@@ -153,15 +153,20 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 
+configurations {
+    shade
+    implementation.extendsFrom shade
+}
+
 repositories {
     // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
     /*flatDir {
         dir 'libs'
     }*/
 
-    maven {
+    /*maven {
         url "https://oss.sonatype.org/content/repositories/snapshots/"
-    }
+    }*/
 }
 
 dependencies {
@@ -178,12 +183,17 @@ dependencies {
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
 
-    implementation group: 'com.fathzer', name: 'javaluator', version: '3.0.3'
-    implementation "org.joml:joml:${jomlVersion}"
+    minecraftLibrary group: 'com.fathzer', name: 'javaluator', version: '3.0.3'
+    minecraftLibrary "org.joml:joml:${jomlVersion}"
+
+    shade group: 'com.fathzer', name: 'javaluator', version: '3.0.3'
+    shade "org.joml:joml:${jomlVersion}"
+
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
 jar {
+    archiveClassifier = 'slim'
     manifest {
         attributes([
                 "Specification-Title"     : "examplemod",
@@ -235,10 +245,10 @@ afterEvaluate {
 
 shadowJar {
     classifier = ""
-    dependencies {
-        include(dependency(group: 'com.fathzer', name: 'javaluator', version: '3.0.3'))
-        include(dependency("org.joml:joml:${jomlVersion}"))
-    }
+    configurations = [project.configurations.shade]
+    relocate 'org.joml', "${project.group}.libs.joml"
+    relocate 'com.fathzer', "${project.group}.libs.javaluator"
+    finalizedBy 'reobfShadowJar'
 }
 
 tasks.build.dependsOn shadowJar

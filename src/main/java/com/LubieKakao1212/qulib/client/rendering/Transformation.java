@@ -1,9 +1,9 @@
 package com.LubieKakao1212.qulib.client.rendering;
 
+import org.joml.Matrix4d;
 import org.joml.Matrix4x3d;
 import org.joml.Quaterniond;
 import org.joml.Vector3d;
-import org.joml.Vector4d;
 
 @FunctionalInterface
 public interface Transformation {
@@ -22,6 +22,10 @@ public interface Transformation {
         return (v) -> transform(v).add(translation);
     }
 
+    default Transformation compose(Transformation transformation) {
+        return (v) -> transformation.transform(transform(v));
+    }
+
     static Transformation rotated(Quaterniond rotation) {
         return (v) -> v.rotate(rotation);
     }
@@ -35,6 +39,10 @@ public interface Transformation {
     }
 
     static Transformation transformed(Matrix4x3d transformation) {
+        return (v) -> transformation.transformPosition(v);
+    }
+
+    static Transformation transformed(Matrix4d transformation) {
         return (v) -> transformation.transformPosition(v);
     }
 }

@@ -1,5 +1,6 @@
 package com.LubieKakao1212.qulib.util.joml;
 
+import com.mojang.math.Quaternion;
 import org.joml.Quaterniond;
 
 public class QuaterniondUtil {
@@ -26,5 +27,10 @@ public class QuaterniondUtil {
     public static Quaterniond step(Quaterniond from, Quaterniond to, double maxAngle) {
         return step(from, to, maxAngle, from);
     }
+
+    public static Quaternion toMojang(Quaterniond quat) {
+        return new Quaternion((float)quat.x, (float)quat.y, (float)quat.z, (float)quat.w);
+    }
+
 
 }
